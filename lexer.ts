@@ -113,6 +113,13 @@ export function tokenize(sourceCode: string): Token[] {
 // @ts-ignore
 const source = await Deno.readTextFile("./test.txt");
 
+// start timer for performance testing
+const t0 = performance.now();
+
 for (const token of tokenize(source)) {
     console.log(token);
 };
+
+// end timer for performance testing
+const t1 = performance.now();
+console.log(`Tokenized in ${(t1 - t0) / 1000}s`);
