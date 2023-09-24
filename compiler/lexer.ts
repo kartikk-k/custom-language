@@ -1,12 +1,19 @@
 // [LetToken, IndentifierToken, EqualsToken, NumberToken]
 
 export enum TokenType {
+    // literal types
     Number,
     Indentifier,
+
+    // keywords
+    Let,
+
+    // grouping operators
     Equals,
     OpenParenthesis, CloseParenthesis,
     BinaryOperator,
-    Let
+    // eof - end of file
+    EOF
 }
 
 
@@ -97,29 +104,28 @@ export function tokenize(sourceCode: string): Token[] {
 
             } else {
                 console.log(`Unknown token ${src[0]}`);
-                // @ts-ignore
                 Deno.exit(1);
             }
 
         }
     }
 
+    tokens.push({ type: TokenType.EOF, value: "EndOfFile" })
     return tokens;
 };
 
 
 
 // testing code
-// @ts-ignore
-const source = await Deno.readTextFile("./test.txt");
+// const source = await Deno.readTextFile("./test.txt");
 
-// start timer for performance testing
-const t0 = performance.now();
+// // start timer for performance testing
+// const t0 = performance.now();
 
-for (const token of tokenize(source)) {
-    console.log(token);
-};
+// for (const token of tokenize(source)) {
+//     console.log(token);
+// };
 
-// end timer for performance testing
-const t1 = performance.now();
-console.log(`Tokenized in ${(t1 - t0) / 1000}s`);
+// // end timer for performance testing
+// const t1 = performance.now();
+// console.log(`Tokenized in ${(t1 - t0) / 1000}s`);
